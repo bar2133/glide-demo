@@ -100,11 +100,15 @@ class TokensGenerator(AbstractRouter):
         if not telco_auth:
             cls.logger.error(f"Invalid telco auth: {telco_auth}")
             raise HTTPException(status_code=401, detail="Invalid telco auth")
-        if not telco_auth.get("client_id") or not telco_auth.get("client_secret"):
+        if not (client_id := telco_auth.get("client_id")) or not (client_secret := telco_auth.get("client_secret")):
             cls.logger.error(f"Invalid telco auth: {telco_auth}")
             raise HTTPException(status_code=401, detail="Invalid telco auth")
-        if telco_auth.get("client_id") != telco_auth_data.client_id or telco_auth.get(
-                "client_secret") != telco_auth_data.client_secret:
+
+        if (secret := telco_auth_data.auth_client_certs.get(client_id)):
+            if secret != client_secret:
+                cls.logger.error(f"Invalid telco auth: {telco_auth}")
+                raise HTTPException(status_code=401, detail="Invalid telco auth")
+        else:
             cls.logger.error(f"Invalid telco auth: {telco_auth}")
             raise HTTPException(status_code=401, detail="Invalid telco auth")
 

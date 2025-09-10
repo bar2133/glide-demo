@@ -58,7 +58,7 @@ class JWTGenerator(metaclass=Singleton):
             signing_key = cls._process_key_for_signing(key, algorithm)
 
             # Generate the token with optional headers
-            token = pyjwt.encode(payload, signing_key, algorithm=algorithm, headers=headers)
+            token = pyjwt.encode(payload, signing_key, algorithm=algorithm, headers=headers)  # type: ignore
 
             cls.logger.info(f"JWT token generated successfully with algorithm: {algorithm}")
 
@@ -100,7 +100,7 @@ class JWTGenerator(metaclass=Singleton):
             # Process key for RSA algorithms
             verification_key = cls._process_key_for_verification(key, algorithm)
 
-            decoded_payload = pyjwt.decode(token, verification_key, algorithms=[algorithm])
+            decoded_payload = pyjwt.decode(token, verification_key, algorithms=[algorithm])  # type: ignore
             cls.logger.info("JWT token verified successfully")
             return decoded_payload
         except pyjwt.ExpiredSignatureError as e:

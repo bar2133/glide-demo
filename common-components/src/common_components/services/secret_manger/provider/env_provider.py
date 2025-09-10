@@ -56,8 +56,7 @@ class EnvProvider(SMProvider):
         try:
             telco_auth_config = TelcoAuthConfig()
             return TelcoAuthData(
-                client_id=telco_auth_config.client_id,
-                client_secret=telco_auth_config.client_secret
+                auth_client_certs=telco_auth_config.client_certs
             )
         except Exception as e:
             self.logger.error(f"Error loading Telco auth config: {e}")

@@ -6,5 +6,4 @@ class TelcoAuthConfig(SingletonBasicConfig):
     """Telco authentication configuration loaded from environment variables.
     """
     model_config = SettingsConfigDict(env_prefix="TELECOM_AUTH_")
-    client_id: str
-    client_secret: str
+    client_certs: dict[str, str]
