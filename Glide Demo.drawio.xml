@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36" version="28.2.0">
   <diagram name="Page-2" id="RSVGT2BDQbZecAZLaVmv">
-    <mxGraphModel dx="2644" dy="624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2583" dy="971" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -132,8 +131,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="131x9muStNhSjhGBg1Rj-33" value="Key System Features&lt;br&gt;&lt;br&gt;• Two-Phase Token Generation&lt;br&gt;  (Telco + Broker Tokens)&lt;br&gt;&lt;br&gt;• Authorization Code Validation&lt;br&gt;&lt;br&gt;• JWT-based Authentication&lt;br&gt;  (RSA/HMAC Support)&lt;br&gt;&lt;br&gt;• JWKS Public Key Discovery&lt;br&gt;&lt;br&gt;• Secret Manager Integration&lt;br&gt;&lt;br&gt;• Redis Token Caching&lt;br&gt;&lt;br&gt;• MCC/SN Routing&lt;br&gt;&lt;br&gt;• Network Isolation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;fontStyle=1;" parent="1" vertex="1">
-          <mxGeometry x="-70" y="137.5" width="230" height="290" as="geometry" />
+        <mxCell id="131x9muStNhSjhGBg1Rj-33" value="Key System Features&lt;br&gt;&lt;br&gt;• Two-Phase Token Generation&lt;br&gt;  (Telco + Broker Tokens)&lt;br&gt;&lt;br&gt;• Authorization Code Validation&lt;br&gt;&lt;br&gt;• JWT-based Authentication&lt;br&gt;  (RSA/HMAC Support)&lt;br&gt;&lt;br&gt;• JWKS Public Key Discovery&lt;br&gt;&lt;br&gt;• Secret Manager Integration&lt;br&gt;&lt;br&gt;• Redis Token Caching&lt;br&gt;&lt;br&gt;• MCC/SN Routing&lt;br&gt;&lt;br&gt;• Network Isolation&lt;br&gt;&lt;br&gt;• Prometheus Metrics&lt;br&gt;&lt;br&gt;• Grafana Dashboards" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="-70" y="137.5" width="230" height="330" as="geometry" />
         </mxCell>
         <mxCell id="131x9muStNhSjhGBg1Rj-34" value="broker-network" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;fontColor=#b85450;" parent="1" vertex="1">
           <mxGeometry x="490" y="295" width="80" height="20" as="geometry" />
@@ -147,11 +146,44 @@
         <mxCell id="131x9muStNhSjhGBg1Rj-37" value="telco-vodafone-network" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontStyle=2;fontColor=#9673a6;" parent="1" vertex="1">
           <mxGeometry x="810" y="625" width="120" height="15" as="geometry" />
         </mxCell>
-        <mxCell id="uOQfDD17PL6lFSW6hkFa-1" value="Secret Manager&amp;nbsp;&lt;div&gt;&lt;br&gt;• JWT Encryption Keys&lt;br&gt;• RSA/HMAC Support&lt;br&gt;• Key Rotation&lt;br&gt;• Environment Variables&lt;br&gt;• Algorithm Configuration&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="uOQfDD17PL6lFSW6hkFa-1" value="Secret Manager&amp;nbsp;&lt;div&gt;&lt;br&gt;• JWT Encryption Keys&lt;br&gt;• RSA/HMAC Support&lt;br&gt;• Key Rotation&lt;br&gt;• Environment Variables&lt;br&gt;• Algorithm Configuration&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="920" y="340" width="120" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="uOQfDD17PL6lFSW6hkFa-2" value="Secret Manager&amp;nbsp;&lt;div&gt;&lt;br&gt;• JWT Encryption Keys&lt;br&gt;• RSA/HMAC Support&lt;br&gt;• Key Rotation&lt;br&gt;• Environment Variables&lt;br&gt;• Algorithm Configuration&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="uOQfDD17PL6lFSW6hkFa-2" value="Secret Manager&amp;nbsp;&lt;div&gt;&lt;br&gt;• JWT Encryption Keys&lt;br&gt;• RSA/HMAC Support&lt;br&gt;• Key Rotation&lt;br&gt;• Environment Variables&lt;br&gt;• Algorithm Configuration&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="910" y="720" width="120" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="monitoring-section" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;opacity=30;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="480" width="380" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="prometheus-component" value="Prometheus&lt;br&gt;Port: 9090&lt;br&gt;&lt;br&gt;• Metrics Collection&lt;br&gt;• Service Discovery&lt;br&gt;• Alert Manager&lt;br&gt;• HTTP API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1180" y="510" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="grafana-component" value="Grafana&lt;br&gt;Port: 3000&lt;br&gt;&lt;br&gt;• Dashboard UI&lt;br&gt;• Data Visualization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1360" y="510" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="broker-to-prometheus" value="Metrics&lt;br&gt;/metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=8;fontColor=#82b366;strokeColor=#82b366;strokeWidth=1;dashed=1;" parent="1" source="131x9muStNhSjhGBg1Rj-6" target="prometheus-component" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="560" />
+              <mxPoint x="580" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="orange-to-prometheus" value="Metrics&lt;br&gt;/metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=8;fontColor=#82b366;strokeColor=#82b366;strokeWidth=1;dashed=1;" parent="1" source="131x9muStNhSjhGBg1Rj-11" target="prometheus-component" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="345" />
+              <mxPoint x="1100" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vodafone-to-prometheus" value="Metrics&lt;br&gt;/metrics" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=8;fontColor=#82b366;strokeColor=#82b366;strokeWidth=1;dashed=1;" parent="1" source="131x9muStNhSjhGBg1Rj-14" target="prometheus-component" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="710" />
+              <mxPoint x="1100" y="555" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
