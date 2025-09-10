@@ -39,7 +39,8 @@ class ContactTelcoAndGenerateToken(AbstractRouter):
         2. Then, it generates its own broker token using JWT encryption
 
         The method includes Redis caching to improve performance by storing both telco and broker tokens.
-        It uses the telco directory service to route requests to the correct telco service based on MCC/SN prefix matching.
+        It uses the telco directory service to route requests to the correct telco service based on
+        MCC/SN prefix matching.
 
         Args:
             telecom_dto: The telecom identifier containing MCC (Mobile Country Code) and SN (Service Number).
