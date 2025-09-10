@@ -101,6 +101,28 @@ Each service has its own environment file:
 -   `deployment/envs/telco-orange.env`: Orange telco service configuration
 -   `deployment/envs/telco-vodafone.env`: Vodafone telco service configuration
 
+## Deployment
+
+### Prerequisites
+
+-   Docker and Docker Compose
+
+### Quick Start
+
+1. **Clone the repository**
+
+    ```bash
+    git clone <repository-url>
+    cd glide-assignment
+    ```
+
+2. **Start all services**
+
+    ```bash
+    cd deployment
+    docker-compose up -d
+    ```
+
 ## API Documentation
 
 ### Broker Service API
@@ -183,42 +205,6 @@ curl -X POST "http://localhost:8080/api/demo/token?mcc=972&sn=05" \
 **Error Responses:**
 
 -   **401 Unauthorized**: Invalid authorization code
-
-## Deployment
-
-### Prerequisites
-
--   Docker and Docker Compose
-
-### Quick Start
-
-1. **Clone the repository**
-
-    ```bash
-    git clone <repository-url>
-    cd glide-assignment
-    ```
-
-2. **Start all services**
-
-    ```bash
-    cd deployment
-    docker-compose up -d
-    ```
-
-3. **Test token generation**
-
-    ```bash
-    # Test Orange telco (prefix 97205)
-    curl -X POST "http://localhost:8001/api/demo/token?mcc=972&sn=05" \
-      -H "Content-Type: application/x-www-form-urlencoded" \
-      -d "auth_code=best_auth_test"
-
-    # Test Vodafone telco (prefix 972050)
-    curl -X POST "http://localhost:8001/api/demo/token?mcc=972&sn=050" \
-      -H "Content-Type: application/x-www-form-urlencoded" \
-      -d "auth_code=best_auth_test"
-    ```
 
 ### Network Architecture
 
