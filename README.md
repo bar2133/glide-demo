@@ -4,6 +4,10 @@
 
 The system consists of a broker service that acts as an intermediary between clients and multiple telco provider services, implementing intelligent routing based on Mobile Country Code (MCC) and Service Number (SN) prefixes.
 
+## Architecture
+
+![Glide Demo Architecture](Glide%20Demo.drawio.png)
+
 ## Deployment
 
 ### Prerequisites
@@ -77,6 +81,10 @@ Prometheus is configured to scrape metrics from all services every 5 seconds:
 -   Dashboards are provisioned automatically from `deployment/configs/grafana-dashboard.json`
 -   Changes to dashboards persist and can be exported
 -   Additional dashboards can be imported or created through the UI
+
+**Example Dashboard:**
+
+![Grafana Dashboard Example](grafana_example.png)
 
 ### Monitoring Architecture
 
