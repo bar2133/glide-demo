@@ -1,5 +1,6 @@
 from common_components.services.secret_manger.configs.sm_config import SMConfig
 from common_components.services.secret_manger.models.jwt_encryption import JWTEncryptionData
+from common_components.services.secret_manger.models.telco_auth import TelcoAuthData
 from common_components.services.secret_manger.provider.provider_factory import SMProviderFactory
 import logging
 from typing import Annotated
@@ -70,6 +71,14 @@ class SecretManager:
         """
         self.logger.info(f"Getting JWT encryption key from {self.provider.provider_type}")
         return self.provider.get_jwt_encryption_key()
+
+    def get_telco_auth(self) -> TelcoAuthData:
+        """Get telco authentication data.
+
+        Returns:
+            TelcoAuthData: Telco authentication data.
+        """
+        return self.provider.get_telco_auth()
 
 
 async def get_secret_manager() -> SecretManager:

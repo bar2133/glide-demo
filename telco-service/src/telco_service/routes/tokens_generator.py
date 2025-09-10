@@ -12,6 +12,8 @@ from common_components.services.redis.redis import RedisDep
 import asyncio
 from common_components.utils.consts.telco import TelcoConsts
 from common_components.services.redis.enums.key_types import CacheKeyType
+from common_components.services.secret_manger.secret_manager import SecretManager
+import json
 
 
 class TokensGenerator(AbstractRouter):
@@ -24,6 +26,7 @@ class TokensGenerator(AbstractRouter):
     @classmethod
     async def handle_token_request(cls,
                                    telecom_dto: Annotated[TelecomIdentifierDTO, Query()],
+                                   telco_auth: Annotated[str, Form()],
                                    auth_code: Annotated[str, Form()],
                                    secret_manager: SecretManagerDep,
                                    jwt_generator: JWTGeneratorDep,
@@ -36,6 +39,7 @@ class TokensGenerator(AbstractRouter):
 
         Args:
             telecom_dto: The telecom identifier containing MCC (Mobile Country Code) and SN (Service Number).
+            telco_auth: JSON string containing telco authentication data with client_id and client_secret.
             auth_code: The OAuth authorization code that must contain "best_auth" for validation.
             secret_manager: Dependency for secret manager service that provides JWT encryption keys.
             jwt_generator: Dependency for JWT token generation service.
@@ -46,9 +50,18 @@ class TokensGenerator(AbstractRouter):
 
         Raises:
             HTTPException:
-                - 401: If the authorization code is invalid
+                - 400: If telco_auth JSON is invalid
+                - 401: If the authorization code or telco authentication is invalid
         """
-        cls.verfy_auth_code(auth_code)
+        # Parse telco_auth JSON string
+        try:
+            telco_auth_dict = json.loads(telco_auth)
+        except json.JSONDecodeError:
+            cls.logger.error(f"Invalid telco_auth JSON: {telco_auth}")
+            raise HTTPException(status_code=400, detail="Invalid telco_auth JSON format")
+
+        cls.validate_telco_auth(telco_auth_dict, secret_manager)
+        cls.validate_auth_code(auth_code)
 
         # check for token in redis
         if redis and (res := await cls.check_redis_token(redis, telecom_dto)):
@@ -61,7 +74,7 @@ class TokensGenerator(AbstractRouter):
         return token
 
     @classmethod
-    def verfy_auth_code(cls, auth_code: str) -> None:
+    def validate_auth_code(cls, auth_code: str) -> None:
         """Validate the authorization code according to telco service requirements.
 
         This method implements telco-specific authorization code validation logic.
@@ -78,6 +91,22 @@ class TokensGenerator(AbstractRouter):
         if not cls._check_auth_code(auth_code):
             cls.logger.error(f"Invalid auth code: {auth_code}")
             raise HTTPException(status_code=401, detail="Invalid auth code")
+
+    @classmethod
+    def validate_telco_auth(cls, telco_auth: dict, secret_manager: SecretManager) -> None:
+        """Validate the telco authentication data.
+        """
+        telco_auth_data = secret_manager.get_telco_auth()
+        if not telco_auth:
+            cls.logger.error(f"Invalid telco auth: {telco_auth}")
+            raise HTTPException(status_code=401, detail="Invalid telco auth")
+        if not telco_auth.get("client_id") or not telco_auth.get("client_secret"):
+            cls.logger.error(f"Invalid telco auth: {telco_auth}")
+            raise HTTPException(status_code=401, detail="Invalid telco auth")
+        if telco_auth.get("client_id") != telco_auth_data.client_id or telco_auth.get(
+                "client_secret") != telco_auth_data.client_secret:
+            cls.logger.error(f"Invalid telco auth: {telco_auth}")
+            raise HTTPException(status_code=401, detail="Invalid telco auth")
 
     @classmethod
     async def check_redis_token(cls, redis: RedisDep, telecom_dto: TelecomIdentifierDTO) -> TokenDTO | None:
@@ -135,7 +164,8 @@ class TokensGenerator(AbstractRouter):
             data={TelcoConsts.MCC: telecom_dto.mcc, TelcoConsts.SN: telecom_dto.sn, "auth_code": auth_code},
             key=jwt_encryption_data.key,
             algorithm=jwt_encryption_data.algo,
-            expiration=jwt_encryption_data.exp_sec
+            expiration=jwt_encryption_data.exp_sec,
+            headers={"kid": jwt_encryption_data.kid}
         )
         cls.logger.info(f"Token generated: {jwt_token}")
         return TokenDTO(access_token=jwt_token.token,

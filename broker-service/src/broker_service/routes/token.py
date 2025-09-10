@@ -15,6 +15,7 @@ from common_components.services.redis.enums.key_types import CacheKeyType
 import asyncio
 from common_components.services.secret_manger.secret_manager import SecretManagerDep
 from common_components.models.oauth_enums import GrantType
+import json
 
 
 class ContactTelcoAndGenerateToken(AbstractRouter):
@@ -93,7 +94,7 @@ class ContactTelcoAndGenerateToken(AbstractRouter):
         Returns:
             dict: A dictionary containing:
                 - target_url: Complete URL for the telco service token endpoint
-                - form_data: Dictionary with telco_auth credentials and auth_code
+                - form_data: Dictionary with JSON-serialized telco_auth credentials and auth_code
                 - query_params: Dictionary with MCC and SN parameters
         """
         # Forward the request to the telco service
@@ -102,7 +103,7 @@ class ContactTelcoAndGenerateToken(AbstractRouter):
         return {
             "target_url": target_url,
             "form_data": {
-                "telco_auth": telco_auth,
+                "telco_auth": json.dumps(telco_auth),
                 "auth_code": auth_code
             },
             "query_params": {

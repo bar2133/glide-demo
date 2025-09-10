@@ -5,7 +5,7 @@ from common_components.services.secret_manger.enums.providers import SMProviders
 from common_components.services.secret_manger.provider.provider_factory import SMProviderFactory
 import inspect
 import logging
-from common_components.utils.loaded_wrapper import loaded_first
+from common_components.services.secret_manger.models.telco_auth import TelcoAuthData
 
 
 class SMProvider(ABC):
@@ -56,7 +56,7 @@ class SMProvider(ABC):
         """
         ...
 
-    @loaded_first(need_data=True)
+    @abstractmethod
     def get_jwt_encryption_key(self) -> JWTEncryptionData:
         """Get JWT encryption key data with automatic loading verification.
 
@@ -67,16 +67,13 @@ class SMProvider(ABC):
         Returns:
             JWTEncryptionData: The JWT encryption key data from the provider.
         """
-        return self._get_jwt_encryption_key()
+        ...
 
     @abstractmethod
-    def _get_jwt_encryption_key(self) -> JWTEncryptionData:
-        """Extract JWT encryption key from provider data.
-
-        This method must be implemented by concrete subclasses to define how to
-        extract and return JWT encryption key data from the provider's loaded data.
+    def get_telco_auth(self) -> TelcoAuthData:
+        """Get telco authentication data.
 
         Returns:
-            JWTEncryptionData: The JWT encryption key data specific to the provider.
+            TelcoAuthData: Telco authentication data.
         """
         ...
