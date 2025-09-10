@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "broker-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [{ name = "bnachlieli", email = "bar2133@gmail.com" }]
+requires-python = ">=3.12.9"
+dependencies = ["fastapi", "uvicorn", "pydantic-settings", "httpx"]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio", "pytest-cov", "flake8", "mypy"]
+
+[project.scripts]
+broker-service = "broker_service.__main__:main"
