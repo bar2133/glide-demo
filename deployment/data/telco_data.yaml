@@ -1,0 +1,13 @@
+prefixes:
+  97205:
+    base_url: http://telco-orange:8080
+    client_id: ORANGE_DEMO_ID
+    client_secret: ORANGE_DEMO_SECRET
+  972050:
+    base_url: http://telco-vodafone:8081
+    client_id: VF_DEMO_ID
+    client_secret: VF_DEMO_SECRET
+  4477:
+    base_url: http://telco-vodafone:8081
+    client_id: VF_UK_ID
+    client_secret: VF_UK_SECRET

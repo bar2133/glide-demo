@@ -1,0 +1,96 @@
+services:
+  broker-service:
+    build:
+      context: ..
+      dockerfile: broker-service/Dockerfile
+    ports:
+      - 8001:8001
+    env_file:
+      - ./envs/broker.env
+    volumes:
+      - ../broker-service:/broker-service
+      - ../common-components:/common-components
+      - ../deployment/data:/app/data
+    restart: always
+    networks:
+      - auth-network
+      - broker-network
+
+  broker-redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379"
+    command: redis-server --requirepass redis-broker-password
+    networks:
+      broker-network:
+        aliases:
+          - broker-redis
+
+  telco-orange-service:
+    build:
+      context: ..
+      dockerfile: telco-service/Dockerfile
+    env_file:
+      - ./envs/telco-orange.env
+    volumes:
+      - ../telco-service:/telco-service
+      - ../common-components:/common-components
+    restart: always
+    networks:
+      auth-network:
+        aliases:
+          - telco-orange
+      telco-orange-network:
+        aliases:
+          - telco-orange
+  telco-orange-redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379"
+    command: redis-server --requirepass redis-orange-password
+    networks:
+      telco-orange-network:
+        aliases:
+          - telco-orange-redis
+
+  telco-vodafone-service:
+    build:
+      context: ..
+      dockerfile: telco-service/Dockerfile
+    env_file:
+      - ./envs/telco-vodafone.env
+    volumes:
+      - ../telco-service:/telco-service
+      - ../common-components:/common-components
+    restart: always
+    networks:
+      auth-network:
+        aliases:
+          - telco-vodafone
+      telco-vodafone-network:
+        aliases:
+          - telco-vodafone
+
+  telco-vodafone-redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6380"
+    command: redis-server --requirepass redis-vodafone-password
+    networks:
+      telco-vodafone-network:
+        aliases:
+          - telco-vodafone-redis
+
+
+networks:
+  auth-network:
+    driver: bridge
+  telco-orange-network:
+    driver: bridge
+  telco-vodafone-network:
+    driver: bridge
+  broker-network:
+    driver: bridge
