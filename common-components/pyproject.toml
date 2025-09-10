@@ -18,6 +18,7 @@ dependencies = [
     "python-multipart",
     "pyjwt",
     "cryptography",
+    "prometheus-fastapi-instrumentator",
 ]
 
 [project.optional-dependencies]

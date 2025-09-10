@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from .routes.registry import RouteRegistry
 from ..configurations.server_config import ServerConfig
 import logging
+from prometheus_fastapi_instrumentator import Instrumentator
 
 
 class APIServer:
@@ -25,6 +26,7 @@ class APIServer:
         """
         self.server_config = server_config or ServerConfig()
         self.app = FastAPI()
+        Instrumentator().instrument(self.app).expose(self.app)
         RouteRegistry.include_routes(self.app)
         self.__post_init__()
 
