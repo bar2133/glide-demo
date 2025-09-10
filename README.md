@@ -1,4 +1,4 @@
-# Telco OAuth Token Generation System
+# Token Generation System
 
 ## Overview
 
