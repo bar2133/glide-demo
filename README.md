@@ -4,6 +4,120 @@
 
 The system consists of a broker service that acts as an intermediary between clients and multiple telco provider services, implementing intelligent routing based on Mobile Country Code (MCC) and Service Number (SN) prefixes.
 
+## Deployment
+
+### Prerequisites
+
+-   Docker and Docker Compose
+
+### Quick Start
+
+1. **Clone the repository**
+
+    ```bash
+    git clone <repository-url>
+    cd glide-assignment
+    ```
+
+2. **Start all services**
+
+    ```bash
+    cd deployment
+    docker-compose up -d
+    ```
+
+## Monitoring and Observability
+
+The deployment includes comprehensive monitoring capabilities with Prometheus for metrics collection and Grafana for visualization and dashboards.
+
+### Prometheus Configuration
+
+**Access**: http://localhost:9090
+
+Prometheus is configured to scrape metrics from all services every 5 seconds:
+
+-   **Broker Service**: `http://broker-service:8001/metrics`
+-   **Telco Orange Service**: `http://telco-orange-service:8080/metrics`
+-   **Telco Vodafone Service**: `http://telco-vodafone-service:8081/metrics`
+
+**Key Configuration Settings:**
+
+-   Scrape interval: 5 seconds
+-   Scrape timeout: 5 seconds
+-   Evaluation interval: 8 seconds
+
+**Available Metrics:**
+
+-   HTTP request duration and count
+-   Token generation performance
+-   Service health and availability
+
+### Grafana Dashboard
+
+**Access**: http://localhost:3000
+
+-   **Default Credentials**: admin/admin (change on first login)
+
+**Pre-configured Features:**
+
+-   **Data Source**: Automatically configured to connect to Prometheus
+-   **Dashboard**: Pre-built dashboard with key system metrics
+-   **Auto-refresh**: Dashboard updates every 5 seconds
+-   **Alerting**: Ready for custom alert rules
+
+**Dashboard Panels Include:**
+
+-   Request rate and latency metrics
+-   Token generation success/failure rates
+-   Cache performance metrics
+-   Service availability status
+
+**Dashboard Management:**
+
+-   Dashboards are provisioned automatically from `deployment/configs/grafana-dashboard.json`
+-   Changes to dashboards persist and can be exported
+-   Additional dashboards can be imported or created through the UI
+
+### Monitoring Architecture
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Services  │───▶│ Prometheus  │───▶│   Grafana   │
+│             │    │   :9090     │    │    :3000    │
+│ - Broker    │    │             │    │             │
+│ - Telco-*   │    │ Scrapes     │    │ Visualizes  │
+│             │    │ Metrics     │    │ Dashboards  │
+└─────────────┘    └─────────────┘    └─────────────┘
+```
+
+**Network Configuration:**
+
+-   All monitoring services run on the `auth-network`
+-   Services expose `/metrics` endpoints for Prometheus scraping
+-   Grafana connects to Prometheus via internal Docker network
+
+**Configuration Files:**
+
+-   `deployment/configs/prometheus.yml`: Prometheus scraping configuration
+-   `deployment/configs/grafana-datasources.yml`: Grafana data source setup
+-   `deployment/configs/grafana-dashboard-config.yml`: Dashboard provisioning
+-   `deployment/configs/grafana-dashboard.json`: Pre-built dashboard definition
+
+### Metrics Collection
+
+Each service exposes metrics at the `/metrics` endpoint in Prometheus format, including:
+
+**HTTP Metrics:**
+
+-   `http_requests_total`: Total HTTP requests by method, endpoint, and status
+-   `http_request_duration_seconds`: Request duration histograms
+-   `http_requests_in_progress`: Current number of HTTP requests being processed
+
+**System Metrics:**
+
+-   Process CPU and memory usage
+-   Service startup and health metrics
+
 ## Services
 
 ### 1. Broker Service (Port 8001)
@@ -100,28 +214,6 @@ Each service has its own environment file:
 -   `deployment/envs/broker.env`: Broker service configuration
 -   `deployment/envs/telco-orange.env`: Orange telco service configuration
 -   `deployment/envs/telco-vodafone.env`: Vodafone telco service configuration
-
-## Deployment
-
-### Prerequisites
-
--   Docker and Docker Compose
-
-### Quick Start
-
-1. **Clone the repository**
-
-    ```bash
-    git clone <repository-url>
-    cd glide-assignment
-    ```
-
-2. **Start all services**
-
-    ```bash
-    cd deployment
-    docker-compose up -d
-    ```
 
 ## API Documentation
 
