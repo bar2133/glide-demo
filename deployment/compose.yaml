@@ -87,7 +87,31 @@ services:
       telco-vodafone-network:
         aliases:
           - telco-vodafone-redis
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      auth-network:
+        aliases:
+          - prometheus
 
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - ./configs/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./configs/grafana-dashboard-config.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./configs/grafana-dashboard.json:/etc/grafana/provisioning/dashboards/dashboard.json
+    networks:
+      auth-network:
+        aliases:
+          - grafana
 
 networks:
   auth-network:

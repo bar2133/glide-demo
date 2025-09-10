@@ -1,0 +1,32 @@
+global:
+  scrape_interval: 5s
+  scrape_timeout: 5s
+  evaluation_interval: 8s
+alerting:
+  alertmanagers:
+    - follow_redirects: true
+      enable_http2: true
+      scheme: http
+      timeout: 10s
+      api_version: v2
+      static_configs:
+        - targets: []
+scrape_configs:
+  - job_name: broker-service
+    metrics_path: /metrics
+    follow_redirects: true
+    scheme: http
+    static_configs:
+      - targets: ["broker-service:8001"]
+  - job_name: telco-orange-service
+    metrics_path: /metrics
+    follow_redirects: true
+    scheme: http
+    static_configs:
+      - targets: ["telco-orange-service:8080"]
+  - job_name: telco-vodafone-service
+    metrics_path: /metrics
+    follow_redirects: true
+    scheme: http
+    static_configs:
+      - targets: ["telco-vodafone-service:8081"]
