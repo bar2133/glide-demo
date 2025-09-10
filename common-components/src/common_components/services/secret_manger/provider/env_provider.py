@@ -46,7 +46,8 @@ class EnvProvider(SMProvider):
                 algo=jwt_config.algo,
                 exp_sec=jwt_config.exp_sec,
                 public_key=jwt_config.public_key,
-                kid=jwt_config.kid or None
+                kid=jwt_config.kid or None,
+                jwks_exp=jwt_config.jwks_exp
             )
         except Exception as e:
             self.logger.error(f"Error loading JWT config: {e}")

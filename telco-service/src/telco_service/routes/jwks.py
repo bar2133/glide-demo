@@ -53,13 +53,14 @@ class JWKSExporter(AbstractRouter):
             # Generate fresh JWKS
             self.logger.info("Generating fresh JWKS")
             jwks = await self._generate_jwks(secret_manager)
+            jwt_encryption_data = secret_manager.get_jwt_encryption_key()
 
             # Cache the result
             if redis:
                 await redis.set_value(
                     key="jwks:public",
                     value=json.dumps(jwks),
-                    exp_sec=self.JWKS_CACHE_TTL
+                    exp_sec=jwt_encryption_data.jwks_exp
                 )
 
             return jwks

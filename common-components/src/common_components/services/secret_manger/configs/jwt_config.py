@@ -12,6 +12,7 @@ class JWTConfig(SingletonBasicConfig):
     model_config = SettingsConfigDict(env_prefix="JWT_")
     algo: str
     exp_sec: int
-    key: str 
-    public_key: Optional[str] = None 
+    key: str
+    public_key: Optional[str] = None
     kid: Optional[str] = None
+    jwks_exp: int = 600

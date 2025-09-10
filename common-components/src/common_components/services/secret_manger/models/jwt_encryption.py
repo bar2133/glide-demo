@@ -13,3 +13,4 @@ class JWTEncryptionData(BaseModel):
     exp_sec: int
     public_key: Optional[str] = None
     kid: Optional[str] = None  # Key ID for JWKS
+    jwks_exp: int = 600
